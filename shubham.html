@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Snowfall</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #002b36, #014a74); /* Festive night sky colors */
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #message {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .lights {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .light {
+            width: 15px;
+            height: 15px;
+            margin: 5px;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        .light:nth-child(1) { background: red; }
+        .light:nth-child(2) { background: green; animation-delay: 0.2s; }
+        .light:nth-child(3) { background: yellow; animation-delay: 0.4s; }
+        .light:nth-child(4) { background: blue; animation-delay: 0.6s; }
+        .light:nth-child(5) { background: pink; animation-delay: 0.8s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, white, rgba(255, 255, 255, 0.7));
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(to bottom, #006400, #228B22);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .tree:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+            background: #8B4513; /* Tree trunk */
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">
+        <h1>🎄 Merry Christmas! Enjoy the snowfall! ❄</h1>
+    </div>
+
+    <div class="lights">
+        <!-- Christmas Lights -->
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <!-- Christmas Tree -->
+    <div class="tree"></div>
+
+    <script>
+        // Function to create a single snowflake
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            document.body.appendChild(snowflake);
+
+            // Random position and size
+            const size = Math.random() * 10 + 5; // Random size between 5px and 15px
+            const leftPosition = Math.random() * window.innerWidth;
+            const animationDuration = Math.random() * 3 + 2; // Random duration between 2s and 5s
+            const animationDelay = Math.random() * 2; // Random delay between 0s and 2s
+
+            snowflake.style.left = `${leftPosition}px`;
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.animationDuration = `${animationDuration}s`;
+            snowflake.style.animationDelay = `${animationDelay}s`;
+
+            // Remove snowflake after animation ends
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+        }
+
+        // Continuously generate snowflakes
+        setInterval(createSnowflake, 200); // Create a snowflake every 200ms
+    </script>
+</body>
+</html>
