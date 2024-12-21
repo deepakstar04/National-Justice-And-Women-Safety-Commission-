@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Snowfall</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #002b36, #014a74); /* Festive night sky colors */
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #message {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .lights {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .light {
+            width: 15px;
+            height: 15px;
+            margin: 5px;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        .light:nth-child(1) { background: red; }
+        .light:nth-child(2) { background: green; animation-delay: 0.2s; }
+        .light:nth-child(3) { background: yellow; animation-delay: 0.4s; }
+        .light:nth-child(4) { background: blue; animation-delay: 0.6s; }
+        .light:nth-child(5) { background: pink; animation-delay: 0.8s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .falling {
+            position: absolute;
+            top: -10px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(to bottom, #006400, #228B22);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .tree:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+            background: #8B4513; /* Tree trunk */
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">
+        <h1>🎄 Merry Christmas! Enjoy the snowfall and decorations! ❄</h1>
+    </div>
+
+    <div class="lights">
+        <!-- Christmas Lights -->
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <!-- Christmas Tree -->
+    <div class="tree"></div>
+
+    <script>
+        // List of Christmas-themed characters for decorations
+        const decorations = ['❄', '🎁', '🎄', '⭐', '🔔', '🍭'];
+
+        // Function to create a single falling item
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.classList.add('falling');
+            item.textContent = decorations[Math.floor(Math.random() * decorations.length)];
+            document.body.appendChild(item);
+
+            // Random position, size, and animation settings
+            const size = Math.random() * 20 + 10; // Random size between 10px and 30px
+            const leftPosition = Math.random() * window.innerWidth;
+            const animationDuration = Math.random() * 3 + 3; // Random duration between 3s and 6s
+            const animationDelay = Math.random() * 2; // Random delay between 0s and 2s
+
+            item.style.left = `${leftPosition}px`;
+            item.style.fontSize = `${size}px`;
+            item.style.animationDuration = `${animationDuration}s`;
+            item.style.animationDelay = `${animationDelay}s`;
+
+            // Remove the item after animation ends
+            item.addEventListener('animationend', () => {
+                item.remove();
+            });
+        }
+
+        // Continuously generate falling items (snowflakes and decorations)
+        setInterval(createFallingItem, 200); // Create a new item every 200ms
+    </script>
+</body>
+</html>
